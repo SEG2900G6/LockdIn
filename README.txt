@@ -14,4 +14,4 @@ Max-Darryl Edzoa - Student number 300562303
 Product Name: Lockd1n
 
 Description:
-LockdIn is a a tutoring service offered by LockdIn Studios that offer
+LockdIn is a tutoring service offered by LockdIn Studios that offer various educational tools such as study notes, Past exams, Correction keys for past exams, Personalized Tutoring, based on previous notes offer generated questions and answers
