@@ -9,7 +9,7 @@ Meet Badi - Student number 300533640
 Mohamed Amine Fourati - Student number 300564062
 Rodrigue Macaire Fosto Kamga- Student number 300549610 
 Huy Vu Nguyen - Student number 300545862
-Max-Darryl Edzoa - Student number 3005
+Max-Darryl Edzoa - Student number 300562303
 
 Product Name: Lockd1n
 
