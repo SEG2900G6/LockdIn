@@ -1,3 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LockdIn Tutoring Service</title>
+  <style>
+    :root {
+      /* cette zonne sera changée lorsqu'on aura les couleurs definitives */
+      --page-bg: #f7f5ef;
+      --header-bg: #f7f5ef;
+      --line: #222222;
+      --text: #222222;
+      --accent: #e7c64a;
+      --blue: #2458d3;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--page-bg);
+    }
+
+    .page {
+      width: min(1100px, calc(100% - 48px));
+      min-height: 650px;
+      margin: 42px auto;
+      border: 2px solid var(--line);
+      position: relative;
+      padding: 0 42px 36px;
+    }
+
+    .top-bar {
+      height: 92px;
+      margin: 0 -42px;
+      border-bottom: 2px solid var(--line);
+      position: relative;
+    }
+
+    .menu-wrap {
+      position: absolute;
+      top: 15px;
+      left: 26px;
+      z-index: 5;
+    }
+
+    .menu-toggle {
+      width: 58px;
+      height: 58px;
+      border: 2px solid var(--blue);
+      border-radius: 15px;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      display: block;
+      height: 3px;
+      width: 27px;
+      background: var(--accent);
+      border-radius: 3px;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 67px;
+      left: 0;
+      min-width: 155px;
+      padding: 8px;
+      background: white;
+      border: 1px solid var(--line);
+      box-shadow: 0 5px 14px #0000001c;
+      border-radius: 8px;
+    }
+
+    .dropdown.open { display: block; }
+
+    .dropdown a {
+      display: block;
+      padding: 11px 12px;
+      color: var(--text);
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .dropdown a:hover, .dropdown a:focus {
+      background: #f0eddf;
+      outline: none;
+    }
+
+    /* L’espace réservé du logo chevauche la ligne de l’en-tête */
+    .logo-box {
+      position: absolute;
+      z-index: 2;
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 360px;
+      min-height: 125px;
+      border: 2px solid var(--line);
+      background: var(--page-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 12px;
+    }
+
+    .logo-image {
+      display: none;
+      max-width: 100%;
+      max-height: 76px;
+      object-fit: contain;
+    }
+
+    .logo-placeholder {
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: var(--blue);
+    }
+
+    .logo-subtitle {
+      margin-top: 5px;
+      font-size: 20px;
+      font-family: Georgia, serif;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 42px;
+      align-items: center;
+      padding-top: 86px;
+    }
+
+    .hero-copy {
+      padding-top: 14px;
+      max-width: 560px;
+    }
+
+    .hero-copy h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(30px, 4vw, 44px);
+      font-weight: normal;
+      line-height: 1.25;
+      margin: 0;
+    }
+
+    .scribble-lines {
+      width: 90%;
+      margin-top: 18px;
+    }
+
+    .scribble-lines span {
+      display: block;
+      height: 2px;
+      background: var(--text);
+      border-radius: 50%;
+      margin: 12px 0;
+      transform: rotate(-1deg);
+      opacity: .8;
+    }
+
+    .scribble-lines span:last-child { width: 65%; }
+
+    .image-box {
+      width: 100%;
+      aspect-ratio: 1.08 / 1;
+      min-height: 210px;
+      border: 2px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 18px;
+      overflow: hidden;
+    }
+
+    .image-box img {
+      display: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .image-placeholder {
+      font-size: 18px;
+      line-height: 1.5;
+      color: #777;
+    }
+
+    .bottom-cta {
+      margin-top: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(24px, 3vw, 34px);
+    }
+
+    .features-button {
+      display: inline-block;
+      border: 2px solid var(--blue);
+      border-radius: 10px;
+      padding: 7px 13px;
+      color: var(--accent);
+      background: transparent;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 17px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .features-button:hover, .features-button:focus {
+      background: #ffffff80;
+      outline: 2px solid var(--blue);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 700px) {
+      .page {
+        width: calc(100% - 24px);
+        margin: 18px auto;
+        padding: 0 18px 28px;
+      }
+      .top-bar { margin: 0 -18px; height: 84px; }
+      .menu-wrap { left: 12px; top: 12px; }
+      .menu-toggle { width: 48px; height: 48px; }
+      .logo-box {
+        top: 25px;
+        width: min(270px, calc(100% - 105px));
+        min-height: 100px;
+        left: auto;
+        right: 10px;
+        transform: none;
+      }
+      .logo-placeholder { font-size: 14px; }
+      .logo-subtitle { font-size: 15px; }
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding-top: 55px;
+      }
+      .hero-copy { padding-top: 0; }
+      .image-box { max-width: 430px; justify-self: center; min-height: 190px; }
+      .bottom-cta { margin-top: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="top-bar" aria-label="En-tête du site">
+      <div class="menu-wrap">
+        <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mainMenu">
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="dropdown" id="mainMenu" aria-label="Menu principal">
+          <!-- Remplace les # par les liens souhaités. target="_blank" ouvre un nouvel onglet. -->
+          <a href="#" target="_blank" rel="noopener">Features</a>
+          <a href="#" target="_blank" rel="noopener">Pricing</a>
+          <a href="#" target="_blank" rel="noopener">Team</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="logo-box" aria-label="Emplacement du logo">
+      <!-- Pour ajouter le logo : décommente la balise img et remplace logo.png par le nom de ton fichier. -->
+      <!-- <img class="logo-image" src="logo.png" alt="Logo LockdIn"> -->
+      <div class="logo-placeholder">EMPLACEMENT DU LOGO</div>
+      <div class="logo-subtitle">Tutoring service</div>
+    </section>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <!-- Modifie librement le texte ci-dessous. -->
+        <h1>The answer to all of your questions[...]</h1>
+        <div class="scribble-lines" aria-hidden="true"><span></span><span></span></div>
+      </div>
+
+      <div class="image-box" aria-label="Emplacement de l'image principale">
+        <!-- Pour ajouter une image : décommente la balise img et remplace tutor.jpg par ton fichier. -->
+        <!-- <img src="tutor.jpg" alt="A student studying with a tutor"> -->
+        <div class="image-placeholder">Emplacement de l’image<br>étudiant(e) avec un tuteur</div>
+      </div>
+    </section>
+
+    <section class="bottom-cta">
+      <span>Discover LockdIn here:</span>
+      <!-- Remplace # par le lien de la page Features. -->
+      <a class="features-button" href="#" target="_blank" rel="noopener">Features</a>
+    </section>
+  </main>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const mainMenu = document.getElementById("mainMenu");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = mainMenu.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    // Ferme le menu si l'utilisateur clique ailleurs sur la page.
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest(".menu-wrap")) {
+        mainMenu.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  </script>
+</body>
+</html>
+
 
 Max-Darryl
-Roudrigue
+Rodrigue
