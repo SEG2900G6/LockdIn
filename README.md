@@ -17,3 +17,7 @@
 ## Description
 
 LockdIn is a tutoring service by LockdIn Studios. It offers educational tools such as study notes, past exams with their correction keys, personalized tutoring based on each student's needs, and AI-powered practice questions to help students enrich their minds.
+
+#
+
+the website is now up! https://seg2900g6.github.io/LockdIn/home.html
